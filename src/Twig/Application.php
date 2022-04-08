@@ -33,5 +33,7 @@ class Application extends AbstractExtension {
                 'name' => Locales::getName($localCode)
             ];
         }
+
+        return $this->_locales;
     }
 }
