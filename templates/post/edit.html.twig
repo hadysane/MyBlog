@@ -3,6 +3,16 @@
 
 {% block body %} 
 <h1> Edit Post </h1>
+
+{% if post.imageFile is not null %}
+<p>Post image:</p>
+
+<p><img src="{{ asset("#{post.imageFile}") }}" width="100px" class="img-rounded"/></p>
+
+<br/>
+
+{% endif %}
+
  {{ include('post/_form.html.twig')  }}
 
 

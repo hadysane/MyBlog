@@ -17,6 +17,9 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
+use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+
 class PostFormType extends AbstractType
 {
 
@@ -52,12 +55,15 @@ class PostFormType extends AbstractType
                 'by_reference' => false, 
                 'expanded' => true, 
             ])
+
+            
             ->add('date_publication', DateType::class, [
                 'label' => 'Date publication',
                 'help' =>'help.post_publication',
                 'widget' => 'single_text',
                 ])
             
+
             ->addEventListener(FormEvents::SUBMIT, function (FormEvent $event){
                 
                 /** @var Post */
@@ -72,6 +78,25 @@ class PostFormType extends AbstractType
                 }
 
             })
+
+            ->add('imageFile', FileType::class, [
+                'label'=>'Image',
+
+                'required' => false, 
+
+                'constraints' => [
+                    new File([
+                        'maxSize' =>'10024k', 
+                        'mimeTypes' => [
+                            'image/jpeg', 
+                            'image/png'
+                        ],
+
+                        'mimeTypesMessage' => 'Please upload a valid image',
+                    ])
+                    ],
+                    'data_class' => null
+            ], )
             ->add('save', SubmitType::class, ['label' => 'Edit Post']);
     }
     public function configureureOptions(OptionsResolver $resolver)

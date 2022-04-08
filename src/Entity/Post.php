@@ -38,6 +38,12 @@ class Post
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'posts')]
     private $author;
 
+    
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $imageFile;
+
+   
+
     public function __construct()
     {
         $this->Categories = new ArrayCollection();
@@ -164,4 +170,18 @@ class Post
 
         return $this;
     }
+
+    public function getImageFile(): ?string
+    {
+        return $this->imageFile;
+    }
+
+    public function setImageFile(?string $imageFile): self
+    {
+        $this->imageFile = $imageFile;
+
+        return $this;
+    }
+
+    
 }
